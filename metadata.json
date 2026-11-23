@@ -1,0 +1,6 @@
+{
+  "name": "Jamshid Mahmudov — Portfolio & Blog",
+  "description": "Ikki tilli (UZ/EN) dasturchi portfeli, Markdown blog, bog'lanish tizimi va PostgreSQL asosidagi Admin paneli.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
