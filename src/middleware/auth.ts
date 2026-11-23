@@ -1,6 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import type { DecodedIdToken } from 'firebase-admin/auth';
-import { adminAuth } from '../lib/firebase-admin.ts';
+import { adminAuth, type VerifiedFirebaseToken } from '../lib/firebase-admin.ts';
 import { getOrCreateUser } from '../db/users.ts';
 
 export interface AuthUserRecord {
@@ -12,7 +11,7 @@ export interface AuthUserRecord {
 }
 
 export interface AuthRequest extends Request {
-  user?: DecodedIdToken;
+  user?: VerifiedFirebaseToken;
   dbUser?: AuthUserRecord;
 }
 
