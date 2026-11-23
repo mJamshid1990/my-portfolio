@@ -18,7 +18,7 @@ import {
   updatePostAdmin,
   updateProjectAdmin,
 } from './db/portfolio.ts';
-import { AuthRequest, requireAdmin, requireAuth } from './middleware/auth.ts';
+import { type AuthRequest, requireAdmin, requireAuth } from './middleware/auth.ts';
 import {
   validateContactInput,
   validatePostInput,
