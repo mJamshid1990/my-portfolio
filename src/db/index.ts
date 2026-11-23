@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import * as schema from './schema.ts';
@@ -8,12 +9,14 @@ declare global {
 
 export const createPool = () => {
   if (!global._postgresPool) {
-    const databaseUrl = process.env.DATABASE_URL;
-    global._postgresPool = databaseUrl
+    const rawUrl = process.env.DATABASE_URL?.trim().replace(/^["']|["']$/g, '');
+    global._postgresPool = rawUrl
       ? new Pool({
-          connectionString: databaseUrl,
+          connectionString: rawUrl,
           ssl:
-            databaseUrl.includes('sslmode=require') || process.env.VERCEL === '1'
+            rawUrl.includes('sslmode=require') ||
+            rawUrl.includes('neon.tech') ||
+            process.env.VERCEL === '1'
               ? { rejectUnauthorized: false }
               : undefined,
           max: 5,

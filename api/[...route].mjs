@@ -12,6 +12,7 @@ import * as dotenv from "dotenv";
 import { desc, eq } from "drizzle-orm";
 
 // src/db/index.ts
+import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 
@@ -107,10 +108,10 @@ var blogPostsRelations = relations(blogPosts, ({ one }) => ({
 // src/db/index.ts
 var createPool = () => {
   if (!global._postgresPool) {
-    const databaseUrl = process.env.DATABASE_URL;
-    global._postgresPool = databaseUrl ? new Pool({
-      connectionString: databaseUrl,
-      ssl: databaseUrl.includes("sslmode=require") || process.env.VERCEL === "1" ? { rejectUnauthorized: false } : void 0,
+    const rawUrl = process.env.DATABASE_URL?.trim().replace(/^["']|["']$/g, "");
+    global._postgresPool = rawUrl ? new Pool({
+      connectionString: rawUrl,
+      ssl: rawUrl.includes("sslmode=require") || rawUrl.includes("neon.tech") || process.env.VERCEL === "1" ? { rejectUnauthorized: false } : void 0,
       max: 5,
       connectionTimeoutMillis: 15e3
     }) : new Pool({
